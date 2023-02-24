@@ -8,11 +8,25 @@ namespace CRM.DbContext
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Address>();
+            modelBuilder.Entity<User>();
+            modelBuilder.Entity<Customer>();
+            modelBuilder.Entity<Asset>();
+            modelBuilder.Entity<CustomerAssets>().HasKey(
+                x => new
+                {
+                    x.CustomerID,
+                    x.AssetID
+                });
+        }
         
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Asset> Assets { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<CustomerAssets> CustomersAssets { get; set; }
     }
 }

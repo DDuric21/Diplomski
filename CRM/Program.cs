@@ -1,3 +1,4 @@
+using CRM.Data;
 using CRM.DbContext;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +19,9 @@ using(var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<CrmDbContext>();
     context.Database.Migrate();
 }
+
+//Do seedData on startup
+SeedData.CreateSeedData(app);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

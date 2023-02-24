@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.Migrations
 {
     [DbContext(typeof(CrmDbContext))]
-    [Migration("20230222040317_AspNetIdentityModel")]
-    partial class AspNetIdentityModel
+    [Migration("20230224031333_InitalCreate")]
+    partial class InitalCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,16 @@ namespace CRM.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CurrencyID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Assets");
@@ -78,6 +88,19 @@ namespace CRM.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("CRM.Models.CustomerAssets", b =>
+                {
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AssetID")
+                        .HasColumnType("int");
+
+                    b.HasKey("CustomerID", "AssetID");
+
+                    b.ToTable("CustomersAssets");
+                });
+
             modelBuilder.Entity("CRM.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -98,22 +121,6 @@ namespace CRM.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("CRM.Models.UserRole", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("CRM.Models.Customer", b =>

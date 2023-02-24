@@ -11,7 +11,7 @@ namespace CRM.Models
 
         [ForeignKey("AdressId")]
         public int AddressId { get; set; }
-        public Address Address { get; set; }
+        public Address? Address { get; set; }
         public DateTime Birthday { get; set; }
 
         [NotMapped]
