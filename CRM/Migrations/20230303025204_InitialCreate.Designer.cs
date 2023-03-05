@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CRM.Migrations
 {
     [DbContext(typeof(CrmDbContext))]
-    [Migration("20230224031333_InitalCreate")]
-    partial class InitalCreate
+    [Migration("20230303025204_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,15 +90,21 @@ namespace CRM.Migrations
 
             modelBuilder.Entity("CRM.Models.CustomerAssets", b =>
                 {
-                    b.Property<int>("CustomerID")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AssetID")
                         .HasColumnType("int");
 
-                    b.HasKey("CustomerID", "AssetID");
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
 
-                    b.ToTable("CustomersAssets");
+                    b.HasKey("Id");
+
+                    b.ToTable("CustomerAssets");
                 });
 
             modelBuilder.Entity("CRM.Models.User", b =>

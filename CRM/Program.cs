@@ -1,11 +1,14 @@
 using CRM.Data;
 using CRM.DbContext;
+using CRM.Models;
+using CRM.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ICrmRepository, CrmRepository>();
 builder.Services.AddDbContext<CrmDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

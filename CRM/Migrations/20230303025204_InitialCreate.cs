@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CRM.Migrations
 {
     /// <inheritdoc />
-    public partial class InitalCreate : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,15 +40,17 @@ namespace CRM.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CustomersAssets",
+                name: "CustomerAssets",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerID = table.Column<int>(type: "int", nullable: false),
                     AssetID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CustomersAssets", x => new { x.CustomerID, x.AssetID });
+                    table.PrimaryKey("PK_CustomerAssets", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,10 +102,10 @@ namespace CRM.Migrations
                 name: "Assets");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "CustomerAssets");
 
             migrationBuilder.DropTable(
-                name: "CustomersAssets");
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Users");

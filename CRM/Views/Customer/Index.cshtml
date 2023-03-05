@@ -1,0 +1,55 @@
+﻿@model Customer
+@{
+    ViewBag.Title = "Customer";
+}
+@using NonFactors.Mvc.Grid
+
+<h2>Index</h2>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+<script src="~/bootstrap/js/bootstrap.min.js"></script>
+<link href="~/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+    <ul class="navbar-nav flex-grow-1">
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Index" asp-route-id="1">Customer1</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Index" asp-route-id="2">Customer2</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Index" asp-route-id="3">Customer3</a>
+        </li>
+    </ul>
+</div>
+
+@if (Model != null)
+{
+    <div class="container">
+        <table>
+          <tr>
+            <th>AssetID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>CurencyID</th>
+          </tr>
+            @foreach(var asset in Model.Assets)
+            {
+                <tr>
+                    <td>@asset.Id</td>
+                    <td>@asset.Name</td>
+                    <td>@asset.Price</td>
+                    <td>@asset.CurrencyID</td>
+                </tr>            
+            }
+        </table>
+    </div>    
+}
+
+<div class="container">
+
+</div>

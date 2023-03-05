@@ -123,9 +123,9 @@ namespace CRM.Data
                     context.SaveChanges();
                 }
 
-                if (!context.CustomersAssets.Any())
+                if (!context.CustomerAssets.Any())
                 {
-                    context.CustomersAssets.AddRange(new List<CustomerAssets>
+                    context.CustomerAssets.AddRange(new List<CustomerAssets>
                     {
                         new CustomerAssets
                         {

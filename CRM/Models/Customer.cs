@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CRM.Models
@@ -15,6 +16,6 @@ namespace CRM.Models
         public DateTime Birthday { get; set; }
 
         [NotMapped]
-        public IDictionary<int, Asset> Assets { get; set; }
+        public ICollection<Asset> Assets { get; set; }
     }
 }
