@@ -24,11 +24,11 @@ namespace CRM.Migrations
 
             modelBuilder.Entity("CRM.Models.Address", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("FullAddress")
                         .HasColumnType("nvarchar(max)");
@@ -40,13 +40,13 @@ namespace CRM.Migrations
 
             modelBuilder.Entity("CRM.Models.Asset", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CurrencyID")
+                    b.Property<long>("CurrencyID")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -63,13 +63,13 @@ namespace CRM.Migrations
 
             modelBuilder.Entity("CRM.Models.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("AddressId")
+                    b.Property<long>("AddressId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Birthday")
@@ -87,16 +87,16 @@ namespace CRM.Migrations
 
             modelBuilder.Entity("CRM.Models.CustomerAssets", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("AssetID")
+                    b.Property<long>("AssetID")
                         .HasColumnType("int");
 
-                    b.Property<int>("CustomerID")
+                    b.Property<long>("CustomerID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -106,11 +106,11 @@ namespace CRM.Migrations
 
             modelBuilder.Entity("CRM.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<string>("UserEmail")
                         .HasColumnType("nvarchar(max)");
@@ -118,7 +118,7 @@ namespace CRM.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserRoleId")
+                    b.Property<long>("UserRoleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

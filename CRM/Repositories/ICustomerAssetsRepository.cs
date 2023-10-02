@@ -4,6 +4,6 @@ namespace CRM.Repositories
 {
     public interface ICustomerAssetsRepository : IGenericRepository<CustomerAssets>
     {
-        Task<IEnumerable<CustomerAssets>> GetByCustomerIdAsync(int id);
+        Task<IEnumerable<CustomerAssets>> GetByCustomerIdAsync(long id);
     }
 }

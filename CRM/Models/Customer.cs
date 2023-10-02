@@ -7,11 +7,11 @@ namespace CRM.Models
     public class Customer
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string? Name { get; set; }
 
         [ForeignKey("AdressId")]
-        public int AddressId { get; set; }
+        public long AddressId { get; set; }
         public Address? Address { get; set; }
         public DateTime Birthday { get; set; }
 

@@ -6,11 +6,11 @@ namespace CRM.Models
     public class User
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string? UserName { get; set; }
         public string? UserEmail { get; set; }
 
         [ForeignKey("UserRoleId")]
-        public int UserRoleId { get; set; }
+        public long UserRoleId { get; set; }
     }
 }

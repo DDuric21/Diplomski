@@ -5,7 +5,7 @@ namespace CRM.Models
     public class Address
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string? FullAddress { get; set; }
     }
 }

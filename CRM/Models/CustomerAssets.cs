@@ -6,10 +6,10 @@ namespace CRM.Models
     public class CustomerAssets
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         [ForeignKey("CustomerId")]
-        public int CustomerID { get; set; }
+        public long CustomerID { get; set; }
         [ForeignKey("AssetID")]
-        public int AssetID { get; set; }
+        public long AssetID { get; set; }
     }
 }

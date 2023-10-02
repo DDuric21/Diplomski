@@ -2,6 +2,7 @@
 using CRM.Models;
 using CRM.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CRM.Controllers
 {
@@ -21,7 +22,7 @@ namespace CRM.Controllers
 
         [HttpGet]
         [Route("/Customer/{id}")]
-        public IActionResult Index(int id)
+        public IActionResult Profile(long id)
         {
             var customer = _repository.Customers.GetByIdAsync(id).Result;
             var customerAsetIDs = _repository.CustomerAssets
@@ -29,6 +30,7 @@ namespace CRM.Controllers
                 .Result
                 .Select(x => x.AssetID)
                 .ToList();
+
             customer.Assets = new List<Asset>();
 
             foreach (var customerAsetID in customerAsetIDs)

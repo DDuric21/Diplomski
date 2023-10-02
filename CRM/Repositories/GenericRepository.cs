@@ -1,59 +1,71 @@
 ﻿using CRM.DbContext;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 
 namespace CRM.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        public Task<string> DeleteByIdAsync(int id)
+        protected readonly CrmDbContext _context;
+        public GenericRepository(CrmDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public virtual IEnumerable<TResult> Filter<TResult>(
-            Expression<Func<T, bool>> filter, 
-            Expression<Func<T, TResult>> selector)
+        public async Task<string> DeleteByIdAsync(long id)
         {
-            var options = new DbContextOptionsBuilder();
-            var connectionString = "Data Source=(localdb)\\Local;Database=DiplomskiDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;ApplicationIntent=ReadWrite;MultipleActiveResultSets=True";
-            options.UseSqlServer(connectionString);
+            var entity = await _context.Set<T>().FindAsync(id);
 
-            using (var context = new CrmDbContext((DbContextOptions<CrmDbContext>)options.Options))
+            //entity can be null
+            var model = typeof(T);
+            var modelName = typeof(T).Name;
+
+            var message = new StringBuilder();
+            if (entity == null)
             {
-                var dbset = context.Set<T>();
-
-                var select = dbset
-                    .AsNoTracking()
-                    .Where(filter);
-
-                var result = select
-                    .Select(selector)
-                    .ToList();
-
-                return result;
+                message.AppendFormat("No such {0}", modelName);
             }
+            else
+            {
+                _context.Remove(entity);
+                message.AppendFormat("{0} by ID: {1} successfully deleted", modelName, id);
+            }
+
+            return message.ToString();
         }
 
-        public Task<IEnumerable<T>> GetAllAsync()
+        public virtual IQueryable<T> Where(Expression<Func<T, bool>> predicate)
         {
-            throw new NotImplementedException();
+            var dbset = _context.Set<T>();
+
+            var select = dbset
+                .AsNoTracking()
+                .Where(predicate);
+
+            return select;
         }
 
-        public Task<T> GetByIdAsync(int id)
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().ToListAsync();
         }
 
-        public Task<T> InsertAsync(T entity)
+        public async Task<T> GetByIdAsync(long id)
         {
-            throw new NotImplementedException();
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public Task Save()
+        public async Task<T> InsertAsync(T entity)
         {
-            throw new NotImplementedException();
+            await _context.Set<T>().AddAsync(entity);
+
+            return entity;
+        }
+
+        public async Task Save()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

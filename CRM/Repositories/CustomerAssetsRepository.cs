@@ -5,13 +5,10 @@ using System.Linq.Expressions;
 
 namespace CRM.Repositories
 {
-    public class CustomerAssetsRepository : IGenericRepository<CustomerAssets>, ICustomerAssetsRepository
+    public class CustomerAssetsRepository : GenericRepository<CustomerAssets>, ICustomerAssetsRepository
     {
-        private CrmDbContext _context;
-
-        public CustomerAssetsRepository(CrmDbContext context)
+        public CustomerAssetsRepository(CrmDbContext context) : base(context)
         {
-            _context = context;
         }
 
         public async Task<IEnumerable<CustomerAssets>> GetAllAsync()
@@ -19,12 +16,12 @@ namespace CRM.Repositories
             return await _context.CustomerAssets.ToListAsync();
         }
 
-        public async Task<CustomerAssets> GetByIdAsync(int id)
+        public async Task<CustomerAssets> GetByIdAsync(long id)
         {
             return await _context.CustomerAssets.FindAsync(id);
         }
 
-        public async Task<IEnumerable<CustomerAssets>> GetByCustomerIdAsync(int id)
+        public async Task<IEnumerable<CustomerAssets>> GetByCustomerIdAsync(long id)
         {
             return await _context.CustomerAssets
                 .Where(cA => cA.CustomerID == id)
@@ -37,7 +34,8 @@ namespace CRM.Repositories
 
             return entity;
         }
-        public async Task<string> DeleteByIdAsync(int id)
+
+        public async Task<string> DeleteByIdAsync(long id)
         {
             var customerAsset = await _context.CustomerAssets.FindAsync(id);
 
@@ -54,11 +52,6 @@ namespace CRM.Repositories
         public async Task Save()
         {
             _context.SaveChangesAsync();
-        }
-
-        public IEnumerable<TResult> Filter<TResult>(Expression<Func<CustomerAssets, bool>> filter, Expression<Func<CustomerAssets, TResult>> selector)
-        {
-            throw new NotImplementedException();
         }
     }
 }

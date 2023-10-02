@@ -5,13 +5,10 @@ using System.Linq.Expressions;
 
 namespace CRM.Repositories
 {
-    public class UserRepository : IGenericRepository<User>
+    public class UserRepository : GenericRepository<User>, IUserRepository
     {
-        private CrmDbContext _context;
-
-        public UserRepository(CrmDbContext context)
+        public UserRepository(CrmDbContext context) : base(context)
         {
-            _context = context;
         }
 
         public async Task<IEnumerable<User>> GetAllAsync()
@@ -48,11 +45,6 @@ namespace CRM.Repositories
         public async Task Save()
         {
             await _context.SaveChangesAsync();
-        }
-
-        public IEnumerable<TResult> Filter<TResult>(Expression<Func<User, bool>> filter, Expression<Func<User, TResult>> selector)
-        {
-            throw new NotImplementedException();
         }
     }
 }

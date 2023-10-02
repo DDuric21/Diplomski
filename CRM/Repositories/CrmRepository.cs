@@ -10,7 +10,9 @@ namespace CRM.Repositories
         {
             _context = context;
         }
+
         private ICustomerRepository _customers;
+
         public ICustomerRepository Customers 
         {
             get
@@ -23,7 +25,9 @@ namespace CRM.Repositories
                 return _customers;
             }
         }
+
         public IAssetRepository _asets;
+
         public IAssetRepository Assets
         {
             get
@@ -36,7 +40,9 @@ namespace CRM.Repositories
                 return _asets;
             }
         }
+
         public ICustomerAssetsRepository _customerAssets;
+
         public ICustomerAssetsRepository CustomerAssets
         {
             get
@@ -49,7 +55,9 @@ namespace CRM.Repositories
                 return _customerAssets;
             }
         }
+
         public IGenericRepository<Address> Addresses { get; set; }
+
         public IGenericRepository<User> Users { get; set; }
     }
 }

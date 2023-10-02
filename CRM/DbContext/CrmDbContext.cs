@@ -5,9 +5,30 @@ namespace CRM.DbContext
 {
     public class CrmDbContext : Microsoft.EntityFrameworkCore.DbContext //iz nekog razloga neće mi drugačije prepoznati
     {
+        public static CrmDbContext _context;
+
         public CrmDbContext(DbContextOptions<CrmDbContext> options) : base(options)
         {
+            _context = this;
+        }
 
+        public static CrmDbContext CreateNewContext()
+        {
+            if(_context != null)
+            {
+                return _context;
+            }
+            else
+            {
+                var builder = WebApplication.CreateBuilder();
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+                var optionsBuilder = new DbContextOptionsBuilder();
+                var options = (DbContextOptions<CrmDbContext>) optionsBuilder.UseSqlServer(connectionString).Options;
+
+                _context = new CrmDbContext(options);
+
+                return _context;
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

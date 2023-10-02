@@ -5,11 +5,11 @@ using System.Linq.Expressions;
 
 namespace CRM.Repositories
 {
-    public class CustomerRepository : IGenericRepository<Customer>, ICustomerRepository
+    public class CustomerRepository : GenericRepository<Customer>, ICustomerRepository
     {
-        private readonly CrmDbContext _context;
-
-        public CustomerRepository(CrmDbContext context) { _context = context; }
+        public CustomerRepository(CrmDbContext context) : base(context)
+        {
+        }
 
         public async Task<IEnumerable<Customer>> GetAllAsync()
         {
@@ -45,11 +45,6 @@ namespace CRM.Repositories
         public async Task Save()
         {
             _context.SaveChangesAsync();
-        }
-
-        public IEnumerable<TResult> Filter<TResult>(Expression<Func<Customer, bool>> filter, Expression<Func<Customer, TResult>> selector)
-        {
-            throw new NotImplementedException();
         }
     }
 }

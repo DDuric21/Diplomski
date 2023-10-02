@@ -1,0 +1,33 @@
+﻿@model Dictionary<long, string>
+@{
+    ViewBag.Title = "Asset";
+    var assetNames = Model
+        .Select(x =>
+            new SelectListItem()
+            {
+                Text = x.Value,
+                Value = x.Key.ToString(),
+                Selected = false
+            })
+        .ToList();
+
+    // just to have an empty choice
+    assetNames.Add(
+        new SelectListItem()
+        {
+            Text = string.Empty,
+            Value = null,
+            Selected = true
+        });
+
+}
+@using NonFactors.Mvc.Grid
+
+<h2>Buy New Asset</h2>
+
+<form asp-controller="Asset" asp-action="" method="post">
+    <div class="mb-3">
+        <label class="form-label">Select asset</label>
+        <select class="form-select" asp-items="assetNames"></select>
+    </div>
+</form>

@@ -4,7 +4,7 @@
 }
 @using NonFactors.Mvc.Grid
 
-<h2>Index</h2>
+<h2>Profile</h2>
 
 <script src="~/Scripts/jquery-1.10.2.js"></script>
 <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
@@ -13,22 +13,12 @@
 <link href="~/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/Site.css" rel="stylesheet" />
 
-<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-    <ul class="navbar-nav flex-grow-1">
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Profile" asp-route-id="1">Customer1</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Profile" asp-route-id="2">Customer2</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Customer" asp-action="Profile" asp-route-id="3">Customer3</a>
-        </li>
-    </ul>
-</div>
-
 @if (Model != null)
 {
+    
+    <div class="container">
+        <a class="btn-primary" asp-controller="Asset" asp-action="BuyNew" asp-route-id=@Model.Id>Add new</a>
+    </div>
     <div class="container">
         <table>
           <tr>

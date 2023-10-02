@@ -5,13 +5,10 @@ using System.Linq.Expressions;
 
 namespace CRM.Repositories
 {
-    public class AddressRepository : IGenericRepository<Address>
+    public class AddressRepository : GenericRepository<Address>, IAddressRepository
     {
-        private CrmDbContext _context;
-
-        public AddressRepository(CrmDbContext context)
+        public AddressRepository(CrmDbContext context) : base(context)
         {
-            _context = context;
         }
 
         public async Task<IEnumerable<Address>> GetAllAsync()
@@ -30,6 +27,7 @@ namespace CRM.Repositories
             
             return entity;
         }
+
         public async Task<string> DeleteByIdAsync(int id)
         {
             var address = await _context.Addresses.FindAsync(id);
@@ -47,11 +45,6 @@ namespace CRM.Repositories
         public async Task Save()
         {
             await _context.SaveChangesAsync();
-        }
-
-        public IEnumerable<TResult> Filter<TResult>(Expression<Func<Address, bool>> filter, Expression<Func<Address, TResult>> selector)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -5,13 +5,10 @@ using System.Linq.Expressions;
 
 namespace CRM.Repositories
 {
-    public class AssetRepository : IGenericRepository<Asset>, IAssetRepository
+    public class AssetRepository : GenericRepository<Asset>, IAssetRepository
     {
-        private CrmDbContext _context;
-
-        public AssetRepository(CrmDbContext context)
+        public AssetRepository(CrmDbContext context) : base(context)
         {
-            _context = context;
         }
 
         public async Task<IEnumerable<Asset>> GetAllAsync()
@@ -48,11 +45,6 @@ namespace CRM.Repositories
         public async Task Save()
         {
             await _context.SaveChangesAsync();
-        }
-
-        public IEnumerable<TResult> Filter<TResult>(Expression<Func<Asset, bool>> filter, Expression<Func<Asset, TResult>> selector)
-        {
-            throw new NotImplementedException();
         }
     }
 }

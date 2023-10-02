@@ -5,9 +5,9 @@ namespace CRM.Models
     public class Asset
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public int CurrencyID { get; set; }
+        public long CurrencyID { get; set; }
     }
 }
